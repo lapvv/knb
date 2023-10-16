@@ -1,10 +1,23 @@
-version: "3"
+version: "3.8"
 
 services:
   back-end:
     build:
-
+      context: .
+    image: game-fastapi
+    ports:
+      - 8002:80
+    env_file:
+      - .env
+    volumes:
+      - ./logs/:/backend/logs
   frontend:
     build:
+      context: ./frontend
+    image: game-vue
+    ports:
+      - 80:80
+    env_file:
+      - ./frontend/.env
     depends_on:
       - back-end
